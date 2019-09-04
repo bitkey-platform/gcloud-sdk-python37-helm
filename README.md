@@ -5,6 +5,8 @@
 
 # gcloud-sdk-python37-helm
 
+jenkins job用のdocker imageのリポジトリ。
+
 # リリース手順
 
 1. 修正して、masterへmerge
