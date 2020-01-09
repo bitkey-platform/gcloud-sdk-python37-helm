@@ -10,7 +10,7 @@ LABEL maintainer="Bitkey Inc." \
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # google-cloud-sdk
-RUN pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib pandas \
+RUN pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib pandas google-cloud-monitoring \
     && curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz  \
     && mkdir -p /usr/local/gcloud \
     && tar -C /usr/local/gcloud -xvf /tmp/google-cloud-sdk.tar.gz \
@@ -19,12 +19,16 @@ RUN pip install google-api-python-client google-auth-httplib2 google-auth-oauthl
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
 # helm
-RUN curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+RUN curl https://storage.googleapis.com/kubernetes-helm/helm-v2.14.1-linux-amd64.tar.gz | tar zx linux-amd64/helm \
+  && mv linux-amd64/helm /usr/local/bin/helm \
+  && rm -rf linux-amd64
 RUN helm init -c
 
 # jq
 RUN curl -o /usr/local/bin/jq -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 \
-    && chmod +x /usr/local/bin/jq
+    && chmod +x /usr/local/bin/jq \
+    && apt update \
+    && apt install -y parallel
 
 # kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl \
