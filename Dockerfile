@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.9
 
 LABEL maintainer="Bitkey Inc." \
       org.label-schema.url="https://bitkey.co.jp" \
@@ -22,7 +22,7 @@ ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 RUN curl https://storage.googleapis.com/kubernetes-helm/helm-v2.14.1-linux-amd64.tar.gz | tar zx linux-amd64/helm \
   && mv linux-amd64/helm /usr/local/bin/helm \
   && rm -rf linux-amd64
-RUN helm init -c
+RUN helm init -c --stable-repo-url https://charts.helm.sh/stable
 
 # jq
 RUN curl -o /usr/local/bin/jq -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 \
