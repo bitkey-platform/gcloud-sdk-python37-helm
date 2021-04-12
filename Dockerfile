@@ -10,7 +10,7 @@ LABEL maintainer="Bitkey Inc." \
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # google-cloud-sdk
-RUN pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib pandas google-cloud-monitoring \
+RUN pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib pandas google-cloud-monitoring==0.34.0 \
     && curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz  \
     && mkdir -p /usr/local/gcloud \
     && tar -C /usr/local/gcloud -xvf /tmp/google-cloud-sdk.tar.gz \
