@@ -33,7 +33,7 @@ RUN wget https://ftp.gnu.org/gnu/parallel/parallel-20210722.tar.bz2 \
     && tar -xvjf parallel-20210722.tar.bz2 \
     && cd parallel-20210722 \
     && ./configure \
-    && chmod +x ./configure
+    && chmod +x ./configure \
     && make \
     && make install
 
