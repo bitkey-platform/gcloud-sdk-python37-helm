@@ -20,7 +20,8 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          version: "19.03.8"
+          version: 20.10.6
+          docker_layer_caching: true
       - run:
           name: Build container images
           command: |
@@ -45,7 +46,8 @@ jobs:
     steps:
       - *attach_workspace
       - setup_remote_docker:
-          version: "19.03.8"
+          version: 20.10.6
+          docker_layer_caching: true
       - run:
           name: Load Docker image from workspaces
           command: |
