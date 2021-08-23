@@ -28,7 +28,7 @@ jobs:
     <<: *container_config
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
           version: "19.03.8"
       # - *install_docker_client
       - run:
