@@ -29,7 +29,8 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - *install_docker_client
+        version: 18.06.0-ce
+      # - *install_docker_client
       - run:
           name: Build container images
           command: |
