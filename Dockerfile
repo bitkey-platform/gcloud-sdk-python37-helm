@@ -9,6 +9,14 @@ LABEL maintainer="Bitkey Inc." \
 # timezone
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
+# parallel
+RUN wget https://ftp.gnu.org/gnu/parallel/parallel-20210722.tar.bz2 \
+    && tar -xvjf parallel-20210722.tar.bz2
+WORKDIR /parallel-20210722
+RUN ./configure \
+    && make \
+    && make install
+
 # google-cloud-sdk
 RUN pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib pandas google-cloud-monitoring==0.34.0 \
     && curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz  \
@@ -27,14 +35,6 @@ RUN wget https://get.helm.sh/helm-v3.6.0-linux-amd64.tar.gz && tar xzf helm-v3.6
 # jq
 RUN curl -o /usr/local/bin/jq -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 \
     && chmod +x /usr/local/bin/jq
-
-# parallel
-RUN wget https://ftp.gnu.org/gnu/parallel/parallel-20210722.tar.bz2 \
-    && tar -xvjf parallel-20210722.tar.bz2 \
-    && cd parallel-20210722 \
-    && ./configure \
-    && make \
-    && make install
 
 # kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl \
