@@ -19,16 +19,17 @@ RUN pip install google-api-python-client google-auth-httplib2 google-auth-oauthl
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
 # helm
-RUN curl https://storage.googleapis.com/kubernetes-helm/helm-v2.14.1-linux-amd64.tar.gz | tar zx linux-amd64/helm \
+# 既存のスクリプトの動作を考慮し、　helm3 を helm コマンドとして実行可能にする
+RUN wget https://get.helm.sh/helm-v3.6.0-linux-amd64.tar.gz && tar xzf helm-v3.6.0-linux-amd64.tar.gz \
   && mv linux-amd64/helm /usr/local/bin/helm \
   && rm -rf linux-amd64
-RUN helm init -c --stable-repo-url https://charts.helm.sh/stable
 
 # jq
 RUN curl -o /usr/local/bin/jq -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 \
-    && chmod +x /usr/local/bin/jq \
-    && apt update \
-    && apt install -y parallel
+    && chmod +x /usr/local/bin/jq
+
+# parallel
+RUN apt update && apt install -y parallel
 
 # kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl \
