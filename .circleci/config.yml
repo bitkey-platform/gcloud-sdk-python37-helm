@@ -28,7 +28,9 @@ jobs:
     <<: *container_config
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.6
+          docker_layer_caching: true
       - *install_docker_client
       - run:
           name: Build container images
@@ -53,7 +55,9 @@ jobs:
     <<: *container_config
     steps:
       - *attach_workspace
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.6
+          docker_layer_caching: true
       - *install_docker_client
       - run:
           name: Load Docker image from workspaces
