@@ -9,14 +9,6 @@ LABEL maintainer="Bitkey Inc." \
 # timezone
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-# parallel
-RUN wget https://ftp.gnu.org/gnu/parallel/parallel-20210722.tar.bz2 \
-    && tar -xvjf parallel-20210722.tar.bz2
-WORKDIR /parallel-20210722
-RUN ./configure \
-    && make \
-    && make install
-
 # google-cloud-sdk
 RUN pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib pandas google-cloud-monitoring==0.34.0 \
     && curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz  \
